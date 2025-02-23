@@ -11,6 +11,9 @@ body {
   justify-content: space-between;
   height: 100%;*/
 }
+.card-body {
+  min-height: 113px;
+}
 .carousel-card-body {
   min-height: 200px;
   flex-grow: 1; 

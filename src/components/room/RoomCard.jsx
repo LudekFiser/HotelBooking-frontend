@@ -35,21 +35,26 @@ const RoomCard = ({ room }) => {
   return (
     <Col key={room.id} xs={12} sm={6} md={4} lg={4} xl={3} className="d-flex justify-content-center">
       <Card className="room-card">
+
+      <Link to={`/book-room/${room.id}`}>
         <div className="room-img-container">
-          <Card.Img 
-            variant="top" 
-            src={`data:image/png;base64, ${room.photo}`} 
-            alt="Room Photo" 
-            className="room-img"
-          />
+          
+            <Card.Img 
+              variant="top" 
+              src={`data:image/png;base64, ${room.photo}`} 
+              alt="Room Photo" 
+              className="room-img"
+              height={"100%"}
+            /> 
         </div>
+      </Link>
 
         <Card.Body className="text-center d-flex flex-column justify-content-between">
           <Card.Title className="hotel-color">{room.roomType}</Card.Title>
           <Card.Title className="room-price">{room.roomPrice}$ / night</Card.Title>
           <Card.Text>Some room information goes here for the guest to read through</Card.Text>
 
-          <Link to={`bookings/${room.id}`} className="btn btn-hotel btn-sm mt-3">View / Book Now</Link>
+          <Link to={`/book-room/${room.id}`} className="btn btn-hotel btn-sm mt-3">View / Book Now</Link>
         </Card.Body>
       </Card>
     </Col>
