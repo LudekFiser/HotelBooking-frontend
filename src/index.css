@@ -326,6 +326,26 @@ button.btn-hotel:hover{
 }
 
 
+/*      TABLE     *//*
+.table {
+  width: 100%;
+  table-layout: auto;
+  white-space: nowrap; 
+}*/
+
+th, td {
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle; 
+}
+/*
+th {
+  white-space: nowrap; 
+}*/
+/*
+td:last-child {
+  width: 1%; 
+}
 
 
 
