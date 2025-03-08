@@ -77,6 +77,7 @@ const AddRoom = () => {
                                 <RoomTypeSelector 
                                 handleRoomInputChange={handleRoomInputChange} 
                                 newRoom={newRoom}
+                                allowAddNew={true}
                                 />
                             </div>
                         </div>

@@ -101,6 +101,7 @@ const RoomSearch = () => {
                             <RoomTypeSelector
                                 handleRoomInputChange={handleInputChange}
                                 newRoom={searchQuery}
+                                allowAddNew={false}
                             />
                             <Button className="ml-2" variant="secondary" type="submit">Search</Button>
                         </div>

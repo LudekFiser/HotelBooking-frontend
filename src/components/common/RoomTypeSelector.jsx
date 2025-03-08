@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { getRoomTypes } from '../utils/ApiFunctions'
 
-const RoomTypeSelector = ({handleRoomInputChange, newRoom}) => {
+const RoomTypeSelector = ({handleRoomInputChange, newRoom, allowAddNew = true}) => {
     const[roomTypes, setRoomTypes] = useState([""])
     const[showNewRoomTypeInput, setShowNewRoomTypeInput] = useState(false)
     const[newRoomType, setNewRoomType] = useState("")
 
     useEffect(() => {
         getRoomTypes().then((data) => {
-            setRoomTypes(data)
+            /*setRoomTypes(data)*/
+            const filteredTypes = allowAddNew ? data : data.filter(type => type !== "Add New")
+            setRoomTypes(filteredTypes)
         })
     }, [])
 
@@ -33,21 +35,28 @@ const RoomTypeSelector = ({handleRoomInputChange, newRoom}) => {
             className="form-select"
             id="roomType"
             name="roomType"
-            value={newRoom.roomType}
+            /*value={newRoom.roomType}*/
+            value={newRoom.roomType || ""}
             onChange={(e) => {
-                if(e.target.value === "Add New") {
+                /*if(e.target.value === "Add New") {
                     setShowNewRoomTypeInput(true)
-                } else {
-                    handleRoomInputChange(e)
+                }*/
+                if (allowAddNew && e.target.value === "Add New") {
+                    setShowNewRoomTypeInput(true)
+                }else {
+                handleRoomInputChange(e)
                 }
             }}>
                 <option value={""}>select a room type</option>
-                <option value={"Add New"}>Add New</option>
+                {allowAddNew && <option value={"Add New"}>Add New</option>} {/* ✅ Only show when allowed */}
+                {/*<option value={"Add New"}>Add New</option>*/}
+                
                 {roomTypes.map((type, index) => (
                     <option key={index} value={type}>{type}</option>
                 ))}
             </select>
-            {showNewRoomTypeInput && (
+            {/*{showNewRoomTypeInput && (*/}
+            {allowAddNew && showNewRoomTypeInput  && (
                 <div className="mt-2">
                     <div className="input-group">
                         <input
