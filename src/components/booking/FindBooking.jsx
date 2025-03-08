@@ -4,6 +4,7 @@ import moment from 'moment'
 import BookingSummary from './BookingSummary'
 
 
+
 const FindBooking = ({payment}) => {
     const[confirmationCode, setConfirmationCode] = useState("")
     const[error, setError] = useState("")
@@ -116,11 +117,11 @@ const FindBooking = ({payment}) => {
 
                     <p>
                         Check-in Date : {" "}
-                        {moment(bookingInfo.checkInDate)/*.subtract(1, "month")*/.format("MMM Do, YYYY")}
+                        {moment(bookingInfo.checkInDate).format("MMM Do, YYYY")}
                     </p>
                     <p>
                         Check-out Date : {" "}
-                        {moment(bookingInfo.checkOutDate)/*.subtract(1, "month")*/.format("MMM Do, YYYY")}
+                        {moment(bookingInfo.checkOutDate).format("MMM Do, YYYY")}
                     </p>
 
                     <p>Full name : {bookingInfo.guestFullName}</p>

@@ -4,6 +4,7 @@ import DateSlider from '../common/DateSlider'
 
 const BookingsTable = ({bookingInfo, handleBookingCancelation}) => {
     const[filteredBookings, setFilteredBookings] = useState(bookingInfo)
+    const [copied, setCopied] = useState(null);
 
     const filterBookings = (startDate, endDate) => {
         let filtered = bookingInfo
@@ -20,6 +21,14 @@ const BookingsTable = ({bookingInfo, handleBookingCancelation}) => {
     useEffect(() => {
         setFilteredBookings(bookingInfo)
     }, [bookingInfo])
+
+    const copyToClipboard = (text, id) => {
+        navigator.clipboard.writeText(text);
+        setCopied(id);
+        setTimeout(() => setCopied(null), 2000); // Hide message after 2 sec
+    };
+
+      
   return (
     <section className='p-4'>
         <DateSlider onDateChange={filterBookings} onFilterChange={filterBookings}/> 
@@ -29,7 +38,7 @@ const BookingsTable = ({bookingInfo, handleBookingCancelation}) => {
                     <th>S/N</th>
                     <th>Booking ID</th>
                     <th>Room ID</th>
-                    {/*<th>Room Type</th>*/}
+                    <th>Room Type</th>
                     <th>Check-In Date</th>
                     <th>Check-Out Date</th>
                     <th>Guest Name</th>
@@ -48,7 +57,7 @@ const BookingsTable = ({bookingInfo, handleBookingCancelation}) => {
                         <td>{index + 1}</td>
                         <td>{booking.id}</td>
                         <td>{booking.room.id}</td>
-                        {/*<td>{booking.room.roomType}</td>*/}
+                        <td>{booking.room.roomType}</td>
                         <td>{booking.checkInDate}</td>
                         <td>{booking.checkOutDate}</td>
                         <td>{booking.guestFullName}</td>
@@ -56,7 +65,25 @@ const BookingsTable = ({bookingInfo, handleBookingCancelation}) => {
                         <td>{booking.numberOfAdults}</td>
                         <td>{booking.numberOfChildren}</td>
                         <td>{booking.totalNumberOfGuests}</td>
-                        <td>{booking.bookingConfirmationCode}</td>
+                        {/*<td>{booking.bookingConfirmationCode}</td>*/}
+
+                        <td 
+                        onClick={() => copyToClipboard(booking.bookingConfirmationCode, booking.id)}
+                        className="copyable"
+                        >
+                        {booking.bookingConfirmationCode}
+                        {copied === booking.id && (
+                            <span 
+                                className="absolute bg-black text-white text-[10px] px-1 py-0.5 rounded shadow-sm"
+                                style={{ top: "-15px", left: "50%", transform: "translateX(-50%)", whiteSpace: "nowrap" }}
+                            >
+                            Copied!
+                            </span>
+                        )}
+                        </td>
+                        
+
+
                         <td>
                             <button 
                             className='btn btn-danger btn-sm' 

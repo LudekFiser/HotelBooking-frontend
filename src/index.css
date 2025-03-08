@@ -533,3 +533,9 @@ td:last-child {
   outline: none; /* Odebere modrý okraj */
   box-shadow: none; /* Odebere modrý stín */
 }
+
+.copyable {
+  cursor: pointer;
+  color: rgb(1, 127, 1) !important;
+  
+}
