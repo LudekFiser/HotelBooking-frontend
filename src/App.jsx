@@ -1,6 +1,6 @@
 import React from 'react'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
-import "../node_modules/bootstrap/dist/js/bootstrap.min.js"
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
 import AddRoom from './components/room/AddRoom'
 import ExistingRooms from './components/room/ExistingRooms.jsx'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
@@ -14,11 +14,16 @@ import Checkout from './components/booking/Checkout.jsx'
 import BookingSuccess from './components/booking/BookingSuccess.jsx'
 import Bookings from './components/booking/Bookings.jsx'
 import FindBooking from './components/booking/FindBooking.jsx'
+import Login from './components/auth/Login.jsx'
+import Registration from './components/auth/Registration.jsx'
+import Profile from './components/auth/Profile.jsx'
+import { AuthProvider } from './components/auth/AuthProvider.jsx'
+import Logout from './components/auth/Logout.jsx'
 
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <main>
         <Router>
           <Navbar/>
@@ -33,11 +38,17 @@ function App() {
             <Route path='/booking-success' element={<BookingSuccess/>}/>
             <Route path='/existing-bookings' element={<Bookings/>}/>
             <Route path='/find-booking' element={<FindBooking/>}/>
+
+            <Route path='/login' element={<Login/>}/>
+            <Route path='/register' element={<Registration/>}/>
+            <Route path='/profile' element={<Profile/>}/>
+            <Route path='/logout' element={<Logout/>}/>
+            
           </Routes>
         </Router>
         <Footer/> 
       </main>
-    </>
+    </AuthProvider>
   )
 }
 

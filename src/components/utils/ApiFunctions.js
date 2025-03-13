@@ -4,6 +4,36 @@ export const api = axios.create({
     baseURL : "http://localhost:9192"
 })
 
+/*export const getHeader = () => {
+    const token = localStorage.getItem("token")
+    return {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+    }
+}
+export const getHeaderPhoto = () => {
+    const token = localStorage.getItem("token")
+    return {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data"
+    }
+}*/
+export const getHeader = (contentType = "application/json") => {
+    const token = localStorage.getItem("token");
+    
+    const headers = {
+        Authorization: `Bearer ${token}`
+    };
+
+    // Přidáme Content-Type pouze pokud není multipart/form-data (Axios si ho nastaví sám)
+    if (contentType !== "multipart/form-data") {
+        headers["Content-Type"] = contentType;
+    }
+
+    return headers;
+};
+
+
 // This function adds a new room to the database
 export async function addRoom(photo, roomType, roomPrice) {
     const formData = new FormData()
@@ -12,7 +42,9 @@ export async function addRoom(photo, roomType, roomPrice) {
     formData.append("roomPrice", roomPrice)
 
     // send data to backend
-    const response = await api.post("/rooms/add/new-room", formData)
+    const response = await api.post("/rooms/add/new-room", formData, {
+        headers: getHeader("multipart/form-data")
+    })
     if(response.status == 201) {
         return true
     } else {
@@ -122,4 +154,82 @@ export async function cancelBooking(bookingId) {
 export async function getAvailableRooms(checkInDate, checkOutDate, roomType) {
     const result = await api.get(`/rooms/available-rooms?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&roomType=${roomType}`)
     return result
+}
+
+// This function registers a new user
+export async function registerUser(registration) {
+    try {
+        const response = await api.post("/auth/register-user", registration)
+        return response.data
+    } catch (error) {
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data)
+        } else {
+            throw new Error(`User registration error : ${error.message}`)
+        }
+    }
+}
+
+// This function logs-in a registered user
+export async function loginUser(login) {
+    try {
+        const response = await api.post("/auth/login", login)
+        if (response.status >= 200 && response.status < 300) {
+            return response.data
+        } else {
+            return null
+        }
+    } catch (error) {
+        console.error(error)
+        return null
+    }
+}
+
+// This function gets the user profile
+export async function getUserProfile(userId, token) {
+    try {
+        const response = await api.get(`/users/profile/${userId}`, { 
+            headers: getHeader()
+        })
+        return response.data
+    } catch (error) {
+        throw error
+    }
+}
+
+// This function deletes a user 
+export async function deleteUser(userId) {
+    try {
+        const response = await api.delete(`/users/delete/${userId}`, { 
+            headers: getHeader()
+        })
+        return response.data
+    } catch (error) {
+        return error.message
+    }
+}
+
+// This function gets a single user
+export async function getUser(userId, token) {
+	try {
+		const response = await api.get(`/users/${userId}`, {
+			headers: getHeader()
+		})
+		return response.data
+	} catch (error) {
+		throw error
+	}
+}
+
+/* This is the function to get user bookings by the user id */
+export async function getBookingsByUserId(userId, token) {
+	try {
+		const response = await api.get(`/bookings/user/${userId}/bookings`, {
+			headers: getHeader()
+		})
+		return response.data
+	} catch (error) {
+		console.error("Error fetching bookings:", error.message)
+		throw new Error("Failed to fetch bookings")
+	}
 }

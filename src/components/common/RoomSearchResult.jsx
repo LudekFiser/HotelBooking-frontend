@@ -22,7 +22,7 @@ const RoomSearchResult = ({results, onClearSearch}) => {
     <>
     {results.length > 0 ? (
         <>
-            <h5 className='text-center mt-5'>Search Result</h5>
+            <h5 className='text-center mt-5'>Available Rooms</h5>
             <Row>
                 {paginatedResults.map((room) => (
                     <RoomCard key={room.id} room={room}/>
