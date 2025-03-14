@@ -549,3 +549,20 @@ td:last-child {
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+
+
+
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgb(255, 204, 0);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}

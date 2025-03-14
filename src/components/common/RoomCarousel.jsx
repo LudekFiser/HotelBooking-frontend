@@ -32,7 +32,9 @@ const RoomCarousel = () => {
         <Link to={"/browse-all-rooms"} className='hotel-color text-center'>Browse all rooms</Link>
 
         <Container>
-            <Carousel indicators={false}>
+            <Carousel indicators={false} controls={true} 
+            nextIcon={<span aria-hidden="true" className="carousel-control-next-icon" />} 
+            prevIcon={<span aria-hidden="true" className="carousel-control-prev-icon" />}>
 
                 {[...Array(Math.ceil(rooms.length / 4))].map((_, index) => (
                     <Carousel.Item key={index}>

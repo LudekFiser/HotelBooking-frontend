@@ -13,7 +13,7 @@ const Navbar = () => {
 	const userRole = localStorage.getItem("userRole")
 
 	return (
-		<nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow mt-5 sticky-top">
+		<nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow sticky-top">
 			<div className="container-fluid">
 				<Link to={"/"} className="navbar-brand">
 					<span className="hotel-color">Gary's Hotel</span>
@@ -75,6 +75,12 @@ const Navbar = () => {
 									<li>
 										<Link className="dropdown-item" to={"/login"}>
 											Login
+										</Link>
+										
+											<hr className='dropdown-divider'/>
+										
+										<Link className="dropdown-item" to={"/register"}>
+											Register
 										</Link>
 									</li>
 								)}
