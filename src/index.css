@@ -539,3 +539,13 @@ td:last-child {
   color: rgb(1, 127, 1) !important;
   
 }
+
+
+.fade-out {
+  animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}

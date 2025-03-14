@@ -41,7 +41,7 @@ const Profile = () => {
 		fetchUser()
 	}, [userId])
 
-	/*useEffect(() => {
+	useEffect(() => {
 		const fetchBookings = async () => {
 			try {
 				const response = await getBookingsByUserId(userId, token)
@@ -53,7 +53,7 @@ const Profile = () => {
 		}
 
 		fetchBookings()
-	}, [userId])*/
+	}, [userId])
 
 	const handleDeleteAccount = async () => {
 		const confirmed = window.confirm(
@@ -75,7 +75,22 @@ const Profile = () => {
 		}
 	}
 
-  const validBookings = bookings.filter(booking => booking.id && booking.room.id);
+  const validBookings = bookings.filter(booking => booking.id && booking.room.id)
+
+  const getBookingStatus = (checkIn, checkOut) => {
+    const today = moment(); // Dnešní datum
+    const startDate = moment(checkIn, "YYYYMMDD")
+    const endDate = moment(checkOut, "YYYYMMDD")
+
+    if (today.isBetween(startDate, endDate, "day", "[]")) {
+        return <span className="text-warning">On-going</span>
+    } else if (today.isAfter(endDate)) {
+        return <span className="text-success">Completed</span>
+    } else {
+        return <span className="text-primary">Upcoming</span>
+    }
+  }
+
 
 	return (
 		<div className="container">
@@ -209,22 +224,23 @@ const Profile = () => {
                         <td>{booking.room.roomType}</td>
                         <td>
                           {moment(booking.checkInDate).isValid()
-                            ? moment(booking.checkInDate).format("MMM Do, YYYY")
+                            ? moment(booking.checkInDate).subtract(1, "month").format("MMM Do, YYYY")
                             : "No date"}
                         </td>
                         <td>
                           {moment(booking.checkOutDate).isValid()
-                            ? moment(booking.checkOutDate).format("MMM Do, YYYY")
+                            ? moment(booking.checkOutDate).subtract(1, "month").format("MMM Do, YYYY")
                             : "No date"}
                         </td>
                         <td>{booking.bookingConfirmationCode || "No code"}</td>
-                        <td className="text-success">On-going</td>
+                        {/*<td className="text-success">On-going</td>*/}
+                        <td className="text-success">{getBookingStatus(booking.checkInDate, booking.checkOutDate)}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               ) : (
-                <p>You have not made any bookings yet.</p>
+                <p className="text-center text-danger">You have not made any bookings yet.</p>
               )}
 
 

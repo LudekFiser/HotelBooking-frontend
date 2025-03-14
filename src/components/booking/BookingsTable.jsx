@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { parseISO } from 'date-fns'
 import DateSlider from '../common/DateSlider'
+import moment from "moment";
 
 const BookingsTable = ({bookingInfo, handleBookingCancelation}) => {
     const[filteredBookings, setFilteredBookings] = useState(bookingInfo)
@@ -26,7 +27,15 @@ const BookingsTable = ({bookingInfo, handleBookingCancelation}) => {
         navigator.clipboard.writeText(text);
         setCopied(id);
         setTimeout(() => setCopied(null), 2000); // Hide message after 2 sec
-    };
+    }
+
+    // Funkce pro správné formátování datumu
+    const formatDate = (dateString) => {
+        if (!dateString) return "N/A"; // Pokud není datum, zobrazí "N/A"
+        
+        const date = moment(dateString, "YYYYMMDD"); // Převod čísla na moment datum
+        return date.isValid() ? date.format("DD-MM-YYYY") : "Invalid date"; // Formát: "Mar 14, 2025"
+    }
 
       
   return (
@@ -58,8 +67,8 @@ const BookingsTable = ({bookingInfo, handleBookingCancelation}) => {
                         <td>{booking.id}</td>
                         <td>{booking.room.id}</td>
                         <td>{booking.room.roomType}</td>
-                        <td>{booking.checkInDate}</td>
-                        <td>{booking.checkOutDate}</td>
+                        <td>{formatDate(booking.checkInDate)}</td>
+                        <td>{formatDate(booking.checkOutDate)}</td>
                         <td>{booking.guestFullName}</td>
                         <td>{booking.guestEmail}</td>
                         <td>{booking.numberOfAdults}</td>
