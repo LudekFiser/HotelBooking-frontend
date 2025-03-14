@@ -116,7 +116,7 @@ const Profile = () => {
 
 									<div className="col-md-10">
 										<div className="card-body">
-											<div className="form-group row">
+											<div className="form-group row align-items-center">
 												<label className="col-md-2 col-form-label fw-bold">ID:</label>
 												<div className="col-md-10">
 													<p className="card-text">{user.id}</p>
@@ -124,7 +124,7 @@ const Profile = () => {
 											</div>
 											<hr />
 
-											<div className="form-group row">
+											<div className="form-group row align-items-center">
 												<label className="col-md-2 col-form-label fw-bold">First Name:</label>
 												<div className="col-md-10">
 													<p className="card-text">{user.firstName}</p>
@@ -132,7 +132,7 @@ const Profile = () => {
 											</div>
 											<hr />
 
-											<div className="form-group row">
+											<div className="form-group row align-items-center">
 												<label className="col-md-2 col-form-label fw-bold">Last Name:</label>
 												<div className="col-md-10">
 													<p className="card-text">{user.lastName}</p>
@@ -140,7 +140,7 @@ const Profile = () => {
 											</div>
 											<hr />
 
-											<div className="form-group row">
+											<div className="form-group row align-items-center">
 												<label className="col-md-2 col-form-label fw-bold">Email:</label>
 												<div className="col-md-10">
 													<p className="card-text">{user.email}</p>
@@ -148,12 +148,12 @@ const Profile = () => {
 											</div>
 											<hr />
 
-											<div className="form-group row">
+											<div className="form-group row ">
 												<label className="col-md-2 col-form-label fw-bold">Roles:</label>
-												<div className="col-md-10">
-													<ul className="list-unstyled">
+												<div className="col-md-10 ">
+													<ul className="list-unstyled ">
 														{user.roles.map((role) => (
-															<li key={role.id} className="card-text">
+															<li key={role.id} className="card-text ">
 																{role.name}
 															</li>
 														))}
